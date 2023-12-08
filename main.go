@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/ipigtw/api/controllers"
-	"github.com/ipigtw/api/initialize"
-	"github.com/ipigtw/api/middleware"
+	"github.com/ipigtw/pigbank/controllers"
+	"github.com/ipigtw/pigbank/initialize"
+	"github.com/ipigtw/pigbank/middleware"
 )
 func init() {
 	initialize.LoadEnv()

@@ -8,8 +8,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/ipigtw/api/initialize"
-	"github.com/ipigtw/api/models"
+	"github.com/ipigtw/pigbank/initialize"
+	"github.com/ipigtw/pigbank/models"
 	"golang.org/x/crypto/bcrypt"
 )
 
