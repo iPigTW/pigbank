@@ -14,6 +14,12 @@ import (
 )
 
 func Signup(c *gin.Context) {
+	if c.Request.Method != "POST" {
+		c.JSON(http.StatusMethodNotAllowed, gin.H{
+			"error": "Use POST",
+		})
+		return
+	}
 	var body struct {
 		Name string
 		Email string
@@ -51,6 +57,12 @@ func Signup(c *gin.Context) {
 
 }
 func Login(c *gin.Context) {
+	if c.Request.Method != "POST" {
+		c.JSON(http.StatusMethodNotAllowed, gin.H{
+			"error": "Use POST",
+		})
+		return
+	}
 	var body struct {
 		Name string
 		Email string
@@ -85,8 +97,6 @@ func Login(c *gin.Context) {
 	
 	c.SetSameSite(http.SameSiteLaxMode)
 	c.SetCookie("Authorization", tokenString, 3600*24, "", "", true, true)
-	fmt.Println(body)
-	fmt.Println(user)
 	c.JSON(http.StatusOK, gin.H{
 		"message":"Logged in!",
 		
@@ -95,14 +105,20 @@ func Login(c *gin.Context) {
 func Validate(c *gin.Context) {
 	user, _ := c.Get("user")
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Hi"+user.(models.User).Name,
+		"message": "Hi"+user.(*models.User).Name,
 	})
 }
 func Transfer(c *gin.Context) {
+	if c.Request.Method != "POST" {
+		c.JSON(http.StatusMethodNotAllowed, gin.H{
+			"error": "Use POST",
+		})
+		return
+	}
 	user, _ := c.Get("user")
 	var body struct {
 		Target string
-		Amount int
+		Amount uint64
 	}
 	if c.Bind(&body) != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
@@ -120,6 +136,7 @@ func Transfer(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error": "Amount must be lower than your balance",
 		})
+		fmt.Println(user.(*models.User).Balance)
 		return
 	}
 	var target *models.User

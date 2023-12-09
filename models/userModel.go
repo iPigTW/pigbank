@@ -7,5 +7,5 @@ type User struct {
 	Name string `gorm:"unique" gorm:"not null"`
 	Email string `gorm:"unique" gorm:"not null"`
 	Password string `gorm:"not null"`
-	Balance int `gorm:"default:0"`
+	Balance uint64 `gorm:"default:0"`
 }

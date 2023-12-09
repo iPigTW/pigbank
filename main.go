@@ -13,9 +13,11 @@ func init() {
 }
 func main() {
 	router := gin.Default()
-	router.POST("/signup", controllers.Signup)
-	router.POST("/login", controllers.Login)
+	router.Any("/signup", controllers.Signup)
+	router.Any("/login", controllers.Login)
+	router.Any("/transfer", middleware.RequireAuth, controllers.Transfer)
 	router.GET("/validate", middleware.RequireAuth, controllers.Validate)
-	router.POST("/transfer", middleware.RequireAuth, controllers.Transfer)
+	
+
 	router.Run()
 }
